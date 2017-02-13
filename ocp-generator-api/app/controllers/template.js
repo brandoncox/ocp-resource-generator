@@ -1,6 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   Template = require('../models/template');
+  Pod = require('../models/pod');
 
 module.exports = function (app) {
   app.use('/', router);
@@ -8,6 +9,9 @@ module.exports = function (app) {
 
 router.get('/template', function (req, res, next) {
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ template: new Template({title: "hello"}) }));
-  });
+  res.send(
+    JSON.stringify({ template: new Pod({title: "hello"})
+  })
+  );
+
 });

@@ -2,34 +2,37 @@ function Pod (opts) {
   if(!opts) opts = {};
   this.apiVersion = 'v1';
   this.kind = 'Pod';
-  this.spec = opts.spec || '';
-  this.metadata = opts.metadata || '';
+  this.spec = new Spec();
+  this.metadata = new MetaData;
 }
 
-function MetaData(){
-  this.name = 'tls-server';
-  this.labels = {
-    "app" : "snidemo",
-    "name" : "tls-server"
-  };
+
+  function MetaData(){
+     this.name = 'tls-server';
+     this.labels = {
+       app : 'snidemo',
+       name : 'tls-server'
+   };
  }
 
-function Spec(){
-  this.containers = [{
-    'name' : 'tls-server',
-    'image' : 'brandoncox/tls-server',
-    'args':  ["/usr/sbin/server", "-msg=test2"],
-    ports: [
-      {
-        "containerPort": 9999,
-        "protocol": "TCP"
-      }
-    ],
-    'imagePullPolicy' : "Always"
-  }];
-  this.restartPolicy = "Always";
-  this.dnsPolicy = 'ClusterFirst';
-}
+ function Spec(){
+   this.containers = [{
+     'name' : 'tls-server',
+     'image' : 'brandoncox/tls-server',
+     'args':  ["/usr/sbin/server", "-msg=test2"],
+     ports: [
+       {
+         "containerPort": 9999,
+         "protocol": "TCP"
+       }
+     ],
+     'imagePullPolicy' : "Always"
+   }];
+   this.restartPolicy = "Always";
+   this.dnsPolicy = 'ClusterFirst';
+ }
+
+
 
 module.exports = Pod;
 
